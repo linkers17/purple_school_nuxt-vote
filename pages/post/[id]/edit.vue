@@ -1,7 +1,9 @@
 <template>
-  <NuxtPage />
+	<div>Edit post</div>
 </template>
 
 <script lang="ts" setup>
-import '~/assets/styles/base.css'
+
 </script>
+
+<style lang="scss" scoped></style>
