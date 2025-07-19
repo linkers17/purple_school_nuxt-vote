@@ -1,0 +1,24 @@
+:root {
+  --font: 'Roboto', 'sans-serif';
+  --color-font: #292929;
+  --color-black: #191919;
+  --color-white: #ffffff;
+  --color-black-hover: #393939;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--color-font);
+}
+
+h1 {
+  font-weight: 500;
+  font-size: 120px;
+  margin: 0;
+  text-align: center;
+}
