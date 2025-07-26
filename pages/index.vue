@@ -1,5 +1,5 @@
 <template>
-	<div>Index</div>
+	<NuxtLayout />
 </template>
 
 <script lang="ts" setup>

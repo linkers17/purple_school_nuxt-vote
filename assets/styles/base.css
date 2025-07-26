@@ -4,11 +4,15 @@
   --color-black: #191919;
   --color-white: #ffffff;
   --color-black-hover: #393939;
+  --color-border: #e6e6e6;
 }
 
-* {
+*,
+*:before,
+*:after {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
