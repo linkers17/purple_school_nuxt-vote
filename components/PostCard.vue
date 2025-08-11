@@ -3,10 +3,15 @@
 		<div class="post-card__header">
 			<img src="/purple.png" alt="post logo" class="post-card__logo">
 			<span class="post-card__name">PurpleSchool</span>
-			<span class="post-card__time">4 дня назад</span>
+			<span class="post-card__time">{{ post.published_at }}</span>
 		</div>
-		<h2 class="post-card__title">Добавить функцию голосования</h2>
-		<p class="post-card__text">Попробовать добавить в приложение функцию голосования, которая позволит определить, какая фича более полезна, а какая нет. После добавления поста появляется...</p>
+		<NuxtLink
+			class="post-card__title"
+			:to="{ name: 'post-id', params: { id: post.id } }"
+		>
+			<h2>{{ post.title }}</h2>
+		</NuxtLink>
+		<p class="post-card__text">{{ post.content }}</p>
 		<div class="post-card__actions">
 			<div class="post-card__actions-left">
 				<button class="post-card__actions-likes">
@@ -22,10 +27,13 @@
 				<button class="post-card__actions-archive">
 					<Icon name="icons:archive" size="18px" />
 				</button>
-				<button class="post-card__actions-edit">
+				<NuxtLink
+					class="post-card__actions-edit"
+					:to="{ name: 'post-id-edit', params: { id: post.id } }"
+				>
 					<Icon name="icons:edit" size="18px" />
 					<span>Изменить</span>
-				</button>
+				</NuxtLink>
 			</div>
 		</div>
 	</div>
@@ -45,6 +53,7 @@ const { post } = defineProps<Props>()
 .post-card {
 	border-bottom: 1px solid var(--color-border);
 	padding-bottom: 36px;
+	text-decoration: none;
 }
 
 .post-card__header {
@@ -65,9 +74,14 @@ const { post } = defineProps<Props>()
 }
 
 .post-card__title {
+	margin-bottom: 8px;
+	color: var(--color-black);
+	text-decoration: none;
+}
+
+.post-card__title h2 {
 	font-weight: 400;
 	font-size: 22px;
-	margin-bottom: 8px;
 }
 
 .post-card__text {
@@ -109,5 +123,13 @@ const { post } = defineProps<Props>()
 	display: flex;
 	align-items: center;
 	gap: 20px;
+}
+
+.post-card__actions-edit {
+	color: var(--color-black);
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	gap: 6px;
 }
 </style>

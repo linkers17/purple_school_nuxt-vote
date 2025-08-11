@@ -28,5 +28,10 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/scripts',
     '@nuxt/icon'
-  ]
+  ],
+  runtimeConfig: {
+    public: {
+      apiurl: '',
+    },
+  },
 })
