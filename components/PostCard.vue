@@ -66,7 +66,7 @@ const { favorites } = storeToRefs(favoritesStore)
 const favoriteState = computed<PostFavorite | undefined>(() => favorites.value.find(f => f.id === post.id))
 
 const likePost = async () => {
-	const findPost = favorites.value.find(post => post.id === post.id)
+	const findPost = favorites.value.find(item => item.id === post.id)
 	if (findPost && findPost.action === PostFavoritesEnum.LIKED)
 		return
 	const data = await $fetch<Post>(`${API_URL}/posts/${post.id}/like`)
@@ -74,7 +74,7 @@ const likePost = async () => {
 }
 
 const dislikePost = async () => {
-	const findPost = favorites.value.find(post => post.id === post.id)
+	const findPost = favorites.value.find(item => item.id === post.id)
 	if (findPost && findPost.action === PostFavoritesEnum.DISLIKED)
 		return
 	const data = await $fetch<Post>(`${API_URL}/posts/${post.id}/dislike`)
