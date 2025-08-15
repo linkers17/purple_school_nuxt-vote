@@ -14,11 +14,19 @@
 		<p class="post-card__text">{{ post.content }}</p>
 		<div class="post-card__actions">
 			<div class="post-card__actions-left">
-				<button class="post-card__actions-likes">
+				<button
+					class="post-card__actions-likes"
+					:class="{ active: favoriteState?.action === PostFavoritesEnum.LIKED }"
+					@click="likePost"
+				>
 					<span>{{ post.likes }}</span>
 					<Icon name="icons:thumbs-up" size="18px" />
 				</button>
-				<button class="post-card__actions-dislikes">
+				<button
+					class="post-card__actions-dislikes"
+					:class="{ active: favoriteState?.action === PostFavoritesEnum.DISLIKED }"
+					@click="dislikePost"
+				>
 					<span>{{ post.dislikes }}</span>
 					<Icon name="icons:thumbs-down" size="18px" />
 				</button>
@@ -40,13 +48,38 @@
 </template>
 
 <script lang="ts" setup>
-import type { Post } from '~/types/post.types'
+import { type Post, type PostFavorite, PostFavoritesEnum } from '~/types/post.types'
+
+const config = useRuntimeConfig()
+const API_URL = config.public.apiurl
 
 interface Props {
 	post: Post,
 }
 
 const { post } = defineProps<Props>()
+
+const favoritesStore = useFavoritesStore()
+
+const { favorites } = storeToRefs(favoritesStore)
+
+const favoriteState = computed<PostFavorite | undefined>(() => favorites.value.find(f => f.id === post.id))
+
+const likePost = async () => {
+	const findPost = favorites.value.find(post => post.id === post.id)
+	if (findPost && findPost.action === PostFavoritesEnum.LIKED)
+		return
+	const data = await $fetch<Post>(`${API_URL}/posts/${post.id}/like`)
+	favoritesStore.likePost(data.id)
+}
+
+const dislikePost = async () => {
+	const findPost = favorites.value.find(post => post.id === post.id)
+	if (findPost && findPost.action === PostFavoritesEnum.DISLIKED)
+		return
+	const data = await $fetch<Post>(`${API_URL}/posts/${post.id}/dislike`)
+	favoritesStore.dislikePost(data.id)
+}
 </script>
 
 <style scoped>
