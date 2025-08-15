@@ -17,3 +17,8 @@ export interface PostsResponse {
   page_size: number,
   total_pages: number,
 }
+
+export enum PostSortList {
+  DATE = 'date',
+  RATING = 'rating',
+}
