@@ -17,3 +17,18 @@ export interface PostsResponse {
   page_size: number,
   total_pages: number,
 }
+
+export enum PostSortList {
+  DATE = 'date',
+  RATING = 'rating',
+}
+
+export enum PostFavoritesEnum {
+  LIKED = 'liked',
+  DISLIKED = 'disliked',
+}
+
+export interface PostFavorite {
+  action: PostFavoritesEnum,
+  id: number,
+}
