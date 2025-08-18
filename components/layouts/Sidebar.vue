@@ -4,7 +4,7 @@
 			<NuxtLink to="/">
 				<Icon name="icons:home" size="24px" />
 			</NuxtLink>
-			<NuxtLink to="#">
+			<NuxtLink :to="{ name: 'login' }">
 				<Icon name="icons:exit" size="24px" />
 			</NuxtLink>
 		</nav>

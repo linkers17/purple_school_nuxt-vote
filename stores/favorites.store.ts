@@ -1,3 +1,4 @@
+import { defineStore } from 'pinia';
 import type { PostFavorite } from '~/types/post.types';
 import { PostFavoritesEnum } from '~/types/post.types';
 
