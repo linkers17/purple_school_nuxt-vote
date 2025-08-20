@@ -16,6 +16,11 @@ const API_URL = config.public.apiurl
 const { id } = useRoute().params
 
 const { data: post } = await useFetch<Post>(`${API_URL}/posts/${id}`)
+
+useSeoMeta({
+	description: post.value?.content,
+	title: `Пост ${post.value?.title}`,
+})
 </script>
 
 <style lang="scss" scoped></style>

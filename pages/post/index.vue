@@ -20,6 +20,11 @@ const config = useRuntimeConfig()
 const API_URL = config.public.apiurl
 
 const { data: posts } = await useFetch<PostsResponse>(`${API_URL}/posts`)
+
+useSeoMeta({
+	description: 'Список постов приложения VoteApp',
+	title: 'Список постов',
+})
 </script>
 
 <style scoped>

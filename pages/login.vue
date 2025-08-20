@@ -39,6 +39,10 @@ const login = async () => {
 	authStore.setUser(data)
 	navigateTo({ name: 'post' })
 }
+
+useSeoMeta({
+	title: 'Вход',
+})
 </script>
 
 <style scoped>

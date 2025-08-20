@@ -2,6 +2,9 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   app: {
+    head: {
+      titleTemplate: '%s | VoteApp',
+    },
     pageTransition: {
       name: 'page',
       mode: 'out-in',

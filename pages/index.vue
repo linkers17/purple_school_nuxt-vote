@@ -48,6 +48,11 @@ watchEffect(() => {
 		},
 	})
 })
+
+useSeoMeta({
+	description: 'Главная страница VoteApp',
+	title: 'Главная',
+})
 </script>
 
 <style scoped>
