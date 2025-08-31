@@ -1,5 +1,15 @@
 <template>
 	<div class="posts">
+		<NuxtLink
+			v-if="user"
+			:to="{ name: 'post-create' }"
+			class="posts-add"
+		>
+			<button class="posts-add__btn">
+				<Icon name="material-symbols:add" size="24px" />
+			</button>
+			<span>Добавить новое обновление для голосования</span>
+		</NuxtLink>
 		<PostSort v-model="sort" />
 		<div
 			v-if="posts"
@@ -9,6 +19,7 @@
 				v-for="post in posts.posts"
 				:key="post.id"
 				:post
+				@deletePost="fetchPosts"
 			/>
 		</div>
 		<PostPagination
@@ -28,6 +39,9 @@ const API_URL = config.public.apiurl
 
 const route = useRoute()
 const router = useRouter()
+
+const authStore = useAuthStore()
+const { user }  =storeToRefs(authStore)
 
 const sort = ref<PostSortList>(route.query.sort as PostSortList || PostSortList.RATING)
 const page = ref<number | string>(route.query.page?.toString() || 1)
@@ -49,6 +63,14 @@ watchEffect(() => {
 	})
 })
 
+const fetchPosts = async () => {
+	try {
+		posts.value = await $fetch<PostsResponse>(`${API_URL}/posts`)
+	} catch (error) {
+		console.log(error)
+	}
+}
+
 useSeoMeta({
 	description: 'Главная страница VoteApp',
 	title: 'Главная',
@@ -61,5 +83,24 @@ useSeoMeta({
 	flex-direction: column;
 	width: 100%;
 	gap: 38px;
+}
+
+.posts-add {
+	margin-bottom: 28px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	text-decoration: none;
+	color: var(--color-black);
+	font-weight: 300;
+}
+
+.posts-add__btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	border: none;
+	padding: 5px;
 }
 </style>

@@ -32,3 +32,8 @@ export interface PostFavorite {
   action: PostFavoritesEnum,
   id: number,
 }
+
+export interface PostSaveRequest {
+  content: string,
+  title: string,
+}
