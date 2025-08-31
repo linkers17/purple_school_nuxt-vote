@@ -31,8 +31,11 @@
 					<Icon name="icons:thumbs-down" size="18px" />
 				</button>
 			</div>
-			<div class="post-card__actions-right">
-				<button class="post-card__actions-archive">
+			<div
+				v-if="user"
+				class="post-card__actions-right"
+			>
+				<button class="post-card__actions-archive" @click="deletePost">
 					<Icon name="icons:archive" size="18px" />
 				</button>
 				<NuxtLink
@@ -59,8 +62,14 @@ interface Props {
 
 const { post } = defineProps<Props>()
 
-const favoritesStore = useFavoritesStore()
+const emit = defineEmits<{
+	(event: 'deletePost'): void
+}>()
 
+const favoritesStore = useFavoritesStore()
+const authStore = useAuthStore()
+
+const { user }  =storeToRefs(authStore)
 const { favorites } = storeToRefs(favoritesStore)
 
 const favoriteState = computed<PostFavorite | undefined>(() => favorites.value.find(f => f.id === post.id))
@@ -79,6 +88,20 @@ const dislikePost = async () => {
 		return
 	const data = await $fetch<Post>(`${API_URL}/posts/${post.id}/dislike`)
 	favoritesStore.dislikePost(data.id)
+}
+
+const deletePost = async () => {
+	try {
+		await $fetch(`${API_URL}/posts/${post.id}`, {
+			headers: {
+				'Authorization': `Bearer ${user.value?.token}`,
+			},
+			method: 'delete',
+		})
+		emit('deletePost')
+	} catch (error) {
+		console.error(error)
+	}
 }
 </script>
 

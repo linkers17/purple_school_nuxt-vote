@@ -8,6 +8,7 @@
 				v-for="post in posts.posts"
 				:key="post.id"
 				:post
+				@deletePost="fetchPosts"
 			/>
 		</div>
 	</div>
@@ -20,6 +21,14 @@ const config = useRuntimeConfig()
 const API_URL = config.public.apiurl
 
 const { data: posts } = await useFetch<PostsResponse>(`${API_URL}/posts`)
+
+const fetchPosts = async () => {
+	try {
+		posts.value = await $fetch<PostsResponse>(`${API_URL}/posts`)
+	} catch (error) {
+		console.log(error)
+	}
+}
 
 useSeoMeta({
 	description: 'Список постов приложения VoteApp',
